@@ -1,0 +1,52 @@
+---
+title: "An introduction to popularitycheckr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{popularitycheckr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(popularitycheckr)
+library("tidyverse")
+```
+
+First things first: to get data, we first need data. 
+
+# Get the data from Google Analytics
+
+Let's get them from Google Analytics. In order to access data, we need to authenticate and then identify the id for the specific website we want to analyse. If you accept to have an authentication token stored locally, you'll need to this step only once. Check your account list with `ga_account_list()` and find the `viewId` for the one you want to analyse. 
+
+```{r eval = FALSE}
+
+library("googleAnalyticsR")
+
+ga_auth()
+
+ga_account_list() %>% 
+  select(websiteUrl, viewId)
+```
+
+In order to store the viewId as an enviornment variable, removing the need to specify it at every function call you can use `pc_set_ga_id()`. This needs to be set once per session.
+
+```{r eval = FALSE}
+pc_set_ga_id(1234567)
+```
+
+Let's get all backlinks to our website in the last month. Only essential data will be retained: `source`, `fullReferrer` (i.e. the full link to the page from where the visitor arrived), `landingPagePath` (i.e. the full URL, without domain, where the user arrived on our website), and `sessions` (i.e. the number of sessions) generated in this way in the given time period. 
+
+```{r eval = FALSE}
+backlinks <- pc_get_backlinks(date_range = c(Sys.Date()-32,
+                                             Sys.Date()-1))
+backlinks
+```
+
