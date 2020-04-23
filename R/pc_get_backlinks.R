@@ -4,18 +4,18 @@
 #' @param sources_to_exclude A characther vector of domains to be excluded. By default, a vector of commonly found search engines, social media, and webmail providers. See popularitycheckr::sources_to_exclude
 #' @param ga_id A Google Analytics viewId. Defaults to NULL. If not given, it uses the environment variable typically set with `pc_set_ga_id()`.
 #'
-#' @return A data frame (a tibble) of four columns:
+#' @return A data frame (a tibble) of five columns: 'date', 'sessions', 'source', "fullReferrer", "landingPagePath",
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' pc_set_ga_id(1234567)
-#' 
+#'
 #' backlinks <- pc_get_backlinks(date_range = c(Sys.Date()-32,
 #' Sys.Date()-1))
 #' backlinks
-#' 
+#'
 #' }
 pc_get_backlinks <- function(date_range = c(Sys.Date()-32, Sys.Date()-1),
                              sources_to_exclude = popularitycheckr::sources_to_exclude,
@@ -29,15 +29,16 @@ pc_get_backlinks <- function(date_range = c(Sys.Date()-32, Sys.Date()-1),
 
   referrals <- googleAnalyticsR::google_analytics(viewId = ga_id,
                                                   date_range = date_range,
-                                                  dimensions=c('source', 'medium', "fullReferrer", "landingPagePath"),
+                                                  dimensions=c('source', 'medium', "fullReferrer", "landingPagePath", "date"),
                                                   metrics = c('sessions'),
                                                   dim_filters = fc,
                                                   anti_sample = TRUE)
 
   referrals %>%
-    dplyr::group_by(source, fullReferrer, landingPagePath) %>%
+    dplyr::group_by(source, fullReferrer, landingPagePath, date) %>%
     dplyr::summarise(sessions = sum(sessions)) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(dplyr::desc(sessions))  %>%
+    dplyr::select(date, sessions, dplyr::everything()) %>%
+    dplyr::arrange(date, dplyr::desc(sessions))  %>%
     dplyr::filter(is.element(source, sources_to_exclude)==FALSE)
 }

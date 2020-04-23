@@ -12,7 +12,7 @@
 #' # If set, this function can be used to retrieve the id.
 #'
 #' my_ga_id <- pc_set_ga_id()
-#' my_ga_id()
+#' my_ga_id
 pc_set_ga_id <- function(ga_id = NULL) {
   if(is.null(ga_id)) {
     ga_id <- Sys.getenv("popularitychecker_ga_id")

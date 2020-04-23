@@ -36,7 +36,7 @@ ga_account_list() %>%
   select(websiteUrl, viewId)
 ```
 
-In order to store the viewId as an enviornment variable, removing the need to specify it at every function call you can use `pc_set_ga_id()`. This needs to be set once per session.
+In order to store the viewId as an environment variable, removing the need to specify it at every function call you can use `pc_set_ga_id()`. This needs to be set once per session.
 
 ```{r eval = FALSE}
 pc_set_ga_id(1234567)

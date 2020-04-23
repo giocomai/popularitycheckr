@@ -15,8 +15,13 @@ RoxygenNote: 7.1.0
 Imports: 
     magrittr,
     googleAnalyticsR,
-    dplyr
+    dplyr,
+    fs,
+    lubridate,
+    purrr
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

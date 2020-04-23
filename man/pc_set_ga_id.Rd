@@ -22,5 +22,5 @@ pc_set_ga_id(ga_id = 1234567)
 # If set, this function can be used to retrieve the id.
 
 my_ga_id <- pc_set_ga_id()
-my_ga_id()
+my_ga_id
 }

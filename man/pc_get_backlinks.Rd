@@ -18,7 +18,7 @@ pc_get_backlinks(
 \item{ga_id}{A Google Analytics viewId. Defaults to NULL. If not given, it uses the environment variable typically set with `pc_set_ga_id()`.}
 }
 \value{
-A data frame (a tibble) of four columns:
+A data frame (a tibble) of five columns: 'date', 'sessions', 'source', "fullReferrer", "landingPagePath",
 }
 \description{
 Get referral backlinks to my website.
