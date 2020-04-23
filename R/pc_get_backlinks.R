@@ -24,8 +24,8 @@ pc_get_backlinks <- function(date_range = c(Sys.Date()-32, Sys.Date()-1),
     ga_id <- pc_set_ga_id()
   }
 
-  fc <- googleAnalyticsR::filter_clause_ga4(list(dim_filter(dimension = "medium",
-                                                            expressions = "referral")))
+  fc <- googleAnalyticsR::filter_clause_ga4(list(googleAnalyticsR::dim_filter(dimension = "medium",
+                                                                              expressions = "referral")))
 
   referrals <- googleAnalyticsR::google_analytics(viewId = ga_id,
                                                   date_range = date_range,
