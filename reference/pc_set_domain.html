@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set or retrieve the Google Analytics viewId as an environment variable — pc_set_ga_id • popularitycheckr</title>
+<title>Set or retrieve the domain you are currently working with as an environment variable — pc_set_domain • popularitycheckr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Set or retrieve the Google Analytics viewId as an environment variable — pc_set_ga_id" />
-<meta property="og:description" content="Set or retrieve the Google Analytics viewId as an environment variable" />
+<meta property="og:title" content="Set or retrieve the domain you are currently working with as an environment variable — pc_set_domain" />
+<meta property="og:description" content="Set or retrieve the domain you are currently working with as an environment variable" />
 
 
 
@@ -106,37 +106,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set or retrieve the Google Analytics viewId as an environment variable</h1>
+    <h1>Set or retrieve the domain you are currently working with as an environment variable</h1>
     
-    <div class="hidden name"><code>pc_set_ga_id.Rd</code></div>
+    <div class="hidden name"><code>pc_set_domain.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set or retrieve the Google Analytics viewId as an environment variable</p>
+    <p>Set or retrieve the domain you are currently working with as an environment variable</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pc_set_ga_id</span>(<span class='kw'>ga_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>pc_set_domain</span>(<span class='kw'>domain</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ga_id</th>
-      <td><p>A numeric vector of length one corresponding to a Google Analyitcs viewId.</p></td>
+      <th>domain</th>
+      <td><p>A plain domain name, such as europeandatajournalism.eu</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The Google Analytics viewId currently recorded as environment variable.</p>
+    <p>The domain currently recorded as an environment variable.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>pc_set_ga_id</span>(<span class='kw'>ga_id</span> <span class='kw'>=</span> <span class='fl'>1234567</span>)</div><div class='output co'>#&gt; [1] 1234567</div><div class='input'>
+<span class='fu'>pc_set_domain</span>(<span class='kw'>domain</span> <span class='kw'>=</span> <span class='st'>"europeandatajournalism.eu"</span>)</div><div class='output co'>#&gt; [1] "europeandatajournalism.eu"</div><div class='input'>
 <span class='co'># If set, this function can be used to retrieve the id.</span>
 
-<span class='no'>my_ga_id</span> <span class='kw'>&lt;-</span> <span class='fu'>pc_set_ga_id</span>()
-<span class='no'>my_ga_id</span></div><div class='output co'>#&gt; [1] "1234567"</div></pre>
+<span class='no'>my_domain</span> <span class='kw'>&lt;-</span> <span class='fu'>pc_set_domain</span>()
+<span class='no'>my_domain</span></div><div class='output co'>#&gt; [1] "europeandatajournalism.eu"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
