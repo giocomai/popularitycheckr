@@ -18,7 +18,9 @@ Imports:
     dplyr,
     fs,
     lubridate,
-    purrr
+    purrr,
+    stringr,
+    googlesheets4
 Suggests: 
     knitr,
     rmarkdown
