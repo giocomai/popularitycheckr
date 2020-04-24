@@ -21,6 +21,10 @@ with:
 remotes::install_github("giocomai/popularitycheckr")
 ```
 
+For smooth functioning, at this stage it is recommended that the user
+install the development version of
+[googledrive](https://github.com/tidyverse/googledrive/).
+
 ## Instructions
 
 Please check the package vignette for more details.

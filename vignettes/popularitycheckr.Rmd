@@ -47,6 +47,19 @@ Let's get all backlinks to our website in the last month. Only essential data wi
 ```{r eval = FALSE}
 backlinks <- pc_get_backlinks(date_range = c(Sys.Date()-32,
                                              Sys.Date()-1))
-backlinks
 ```
+
+These backlinks can be stored for reference and direct consultations on Google Drive, with:
+
+```{r}
+pc_upload_backlinks(backlinks)
+```
+
+Only new data will be uploaded, so data on the current date should not be included. The uploading can be piped, e.g.:
+
+```{r}
+pc_get_backlinks() %>% 
+  pc_upload_backlinks
+```
+
 
