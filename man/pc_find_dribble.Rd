@@ -5,19 +5,19 @@
 \title{Find dribbles used by popularitycheckr}
 \usage{
 pc_find_dribble(
-  year,
+  year = NULL,
   type = "raw_data",
-  source = "ga_backlinks",
+  content = "ga_backlinks",
   base_folder = "popularitycheckr",
   create_if_missing = TRUE
 )
 }
 \arguments{
-\item{year}{A vector of length one.}
+\item{year}{A vector of length one. Defaults to NULL, to be used only if relevant.}
 
 \item{type}{Type of data that the dribble refers to. Defaults to "raw_data".}
 
-\item{source}{Source for the data. Defaults to "ga_backlinks".}
+\item{content}{Describes what contents will be included in the given spreadsheet. Defaults to "ga_backlinks".}
 
 \item{base_folder}{Defaults to "popularitycheckr". All files and folders will be included inside this folder.}
 

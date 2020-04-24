@@ -1,8 +1,8 @@
 #' Find dribbles used by popularitycheckr
 #'
-#' @param year A vector of length one.
+#' @param year A vector of length one. Defaults to NULL, to be used only if relevant.
 #' @param type Type of data that the dribble refers to. Defaults to "raw_data".
-#' @param source Source for the data. Defaults to "ga_backlinks".
+#' @param content Describes what contents will be included in the given spreadsheet. Defaults to "ga_backlinks".
 #' @param base_folder Defaults to "popularitycheckr". All files and folders will be included inside this folder.
 #' @param create_if_missing Defaults to TRUE. If already existing, it just returns the relevant dribble.
 #'
@@ -14,19 +14,19 @@
 #' \dontrun{
 #' pc_find_dribble(2020)
 #' }
-pc_find_dribble <- function(year,
+pc_find_dribble <- function(year = NULL,
                             type = "raw_data",
-                            source = "ga_backlinks",
+                            content = "ga_backlinks",
                             base_folder = "popularitycheckr",
                             create_if_missing = TRUE) {
 
 
-  current_spreadsheet_name <- paste(year, pc_set_domain(), type, source, sep = "-")
+  current_spreadsheet_name <- paste(year, pc_set_domain(), type, content, sep = "-")
 
   current_spreadsheet <- googledrive::as_dribble(x = fs::path(base_folder,
                                                               pc_set_domain(),
                                                               type,
-                                                              source,
+                                                              content,
                                                               current_spreadsheet_name))
 
   if (nrow(current_spreadsheet)>0) {
@@ -61,30 +61,36 @@ pc_find_dribble <- function(year,
                                                  overwrite = FALSE)
   }
 
-  current_source_folder <- googledrive::as_dribble(x = paste0(fs::path(base_folder,
+  current_content_folder <- googledrive::as_dribble(x = paste0(fs::path(base_folder,
                                                                        pc_set_domain(),
                                                                        type,
-                                                                       source),
+                                                                       content),
                                                               "/"))
 
-  if (nrow(current_source_folder)==0) {
-    current_source_folder <- googledrive::drive_mkdir(name = source,
+  if (nrow(current_content_folder)==0) {
+    current_content_folder <- googledrive::drive_mkdir(name = content,
                                                       path = base_type_folder,
                                                       overwrite = FALSE)
   }
 
+  if (is.null(year)==FALSE) {
+    sheets_names <- paste(year,
+                          stringr::str_pad(string = 1:12,
+                                           width = 2,
+                                           side = "left",
+                                           pad = "0"),
+                          sep = "-")
+  } else {
+    sheets_names = content
+  }
+
   current_spreadsheet <- googlesheets4::gs4_create(
     name = current_spreadsheet_name,
-    sheets = paste(year,
-                   stringr::str_pad(string = 1:12,
-                                    width = 2,
-                                    side = "left",
-                                    pad = "0"),
-                   sep = "-")) %>%
+    sheets = sheets_names) %>%
     googledrive::as_dribble()
 
   googledrive::drive_mv(file = current_spreadsheet,
-                        path = current_source_folder,
+                        path = current_content_folder,
                         overwrite = FALSE)
 
   current_spreadsheet
