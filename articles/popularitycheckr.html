@@ -91,8 +91,12 @@
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_set_ga_id.html">pc_set_ga_id</a></span>(<span class="fl">1234567</span>)</pre></body></html></div>
 <p>Let’s get all backlinks to our website in the last month. Only essential data will be retained: <code>source</code>, <code>fullReferrer</code> (i.e. the full link to the page from where the visitor arrived), <code>landingPagePath</code> (i.e. the full URL, without domain, where the user arrived on our website), and <code>sessions</code> (i.e. the number of sessions) generated in this way in the given time period.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">backlinks</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>(<span class="kw">date_range</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()-<span class="fl">32</span>,
-                                             <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()-<span class="fl">1</span>))
-<span class="no">backlinks</span></pre></body></html></div>
+                                             <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()-<span class="fl">1</span>))</pre></body></html></div>
+<p>These backlinks can be stored for reference and direct consultations on Google Drive, with:</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>(<span class="no">backlinks</span>)</pre></body></html></div>
+<p>Only new data will be uploaded, so data on the current date should not be included. The uploading can be piped, e.g.:</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>() <span class="kw">%&gt;%</span>
+  <span class="no">pc_upload_backlinks</span></pre></body></html></div>
 </div>
   </div>
 
@@ -111,7 +115,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
