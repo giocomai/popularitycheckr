@@ -39,7 +39,9 @@ pc_upload_backlinks <- function(backlinks) {
                   new_df <- current_month_df %>% dplyr::mutate(date = as.character(date))%>%
                     dplyr::anti_join(y = remote_sheet_pre %>% dplyr::mutate(date = as.character(date)), by = c("date", "fullReferrer", "landingPagePath")) %>%
                     dplyr::mutate(date = as.Date(date))
-                  googlesheets4::sheet_append(ss = current_spreadsheet, data = new_df, sheet = x)
+                  if (nrow(new_df)>0) {
+                    googlesheets4::sheet_append(ss = current_spreadsheet, data = new_df, sheet = x)
+                  }
                 }
               })
   backlinks
