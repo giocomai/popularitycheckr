@@ -20,8 +20,11 @@ pc_find_dribble <- function(year = NULL,
                             base_folder = "popularitycheckr",
                             create_if_missing = TRUE) {
 
-
-  current_spreadsheet_name <- paste(year, pc_set_domain(), type, content, sep = "-")
+  if (is.null(year)) {
+    current_spreadsheet_name <- paste(pc_set_domain(), type, content, sep = "-")
+  } else {
+    current_spreadsheet_name <- paste(year, pc_set_domain(), type, content, sep = "-")
+  }
 
   current_spreadsheet <- googledrive::as_dribble(x = fs::path(base_folder,
                                                               pc_set_domain(),
