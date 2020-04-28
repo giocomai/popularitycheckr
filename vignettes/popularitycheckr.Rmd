@@ -59,7 +59,15 @@ Only new data will be uploaded, so data on the current date should not be includ
 
 ```{r}
 pc_get_backlinks() %>% 
-  pc_upload_backlinks
+  pc_upload_backlinks()
+```
+
+## Process backlinks
+
+The following command creates the spreadsheet where manual input is given about sources to be whitelisted or blacklisted (this is in draft stage, does not currently process further). 
+
+```{r}
+pc_process_backlinks(pc_get_backlinks())
 ```
 
 
