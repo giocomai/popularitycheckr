@@ -23,6 +23,7 @@ pc_downlodad_backlinks <- function(date_range = c(Sys.Date()-32, Sys.Date()-1)) 
                        })
 
   df %>%
+    dplyr::mutate(date = as.Date(date)) %>%
     dplyr::filter(date>=as.Date(date_range[1]), date<=as.Date(date_range[2])) %>%
     dplyr::arrange(date)
 }
