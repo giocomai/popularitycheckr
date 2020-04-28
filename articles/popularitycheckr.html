@@ -96,7 +96,13 @@
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>(<span class="no">backlinks</span>)</pre></body></html></div>
 <p>Only new data will be uploaded, so data on the current date should not be included. The uploading can be piped, e.g.:</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>() <span class="kw">%&gt;%</span>
-  <span class="no">pc_upload_backlinks</span></pre></body></html></div>
+  <span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>()</pre></body></html></div>
+<div id="process-backlinks" class="section level2">
+<h2 class="hasAnchor">
+<a href="#process-backlinks" class="anchor"></a>Process backlinks</h2>
+<p>The following command creates the spreadsheet where manual input is given about sources to be whitelisted or blacklisted (this is in draft stage, does not currently process further).</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_process_backlinks.html">pc_process_backlinks</a></span>(<span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>())</pre></body></html></div>
+</div>
 </div>
   </div>
 
