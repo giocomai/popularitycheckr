@@ -70,4 +70,21 @@ The following command creates the spreadsheet where manual input is given about 
 pc_process_backlinks(pc_get_backlinks())
 ```
 
+Then it's time to load the relevant spreadsheet, and manually input which sources or specific referrals should be whitelistes or blacklisted. To open in your browser the relevant spreadsheet:
+
+```{r}
+googledrive::drive_browse(file = pc_find_dribble(type = "inputs", content = "process"))
+```
+
+Put an `x` (or whatever characther you like) in the relevant column to categorise sources/referrers.
+
+To process the inputs, run the command:
+
+```{r}
+pc_process_lists()
+```
+
+This removes the rows from the "process" spreadsheet and moves it to its own, and the removes *all* of the lines which use that given source (or each line mentioning that specific referrer).
+
+The objective here is similar to that of "inbox zero", i.e. getting all lines out of the `process` sheet and have them categorised in some way.
 
