@@ -102,6 +102,13 @@
 <a href="#process-backlinks" class="anchor"></a>Process backlinks</h2>
 <p>The following command creates the spreadsheet where manual input is given about sources to be whitelisted or blacklisted (this is in draft stage, does not currently process further).</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_process_backlinks.html">pc_process_backlinks</a></span>(<span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>())</pre></body></html></div>
+<p>Then it’s time to load the relevant spreadsheet, and manually input which sources or specific referrals should be whitelistes or blacklisted. To open in your browser the relevant spreadsheet:</p>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw pkg">googledrive</span><span class="kw ns">::</span><span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"inputs"</span>, <span class="kw">content</span> <span class="kw">=</span> <span class="st">"process"</span>))</pre></body></html></div>
+<p>Put an <code>x</code> (or whatever characther you like) in the relevant column to categorise sources/referrers.</p>
+<p>To process the inputs, run the command:</p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_process_lists.html">pc_process_lists</a></span>()</pre></body></html></div>
+<p>This removes the rows from the “process” spreadsheet and moves it to its own, and the removes <em>all</em> of the lines which use that given source (or each line mentioning that specific referrer).</p>
+<p>The objective here is similar to that of “inbox zero”, i.e. getting all lines out of the <code>process</code> sheet and have them categorised in some way.</p>
 </div>
 </div>
   </div>
