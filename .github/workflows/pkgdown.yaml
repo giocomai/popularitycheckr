@@ -9,12 +9,13 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - run: git config user.name "GitHub Actions" && git config user.email "actions@users.noreply.github.com"
 
       - uses: r-lib/actions/setup-r@master
 
       - uses: r-lib/actions/setup-pandoc@master
       
-      - name: Install xmllint
+      - name: install libcurl4
         run: sudo apt-get install libcurl4-openssl-dev
 
       - name: Query dependencies
