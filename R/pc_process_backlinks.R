@@ -120,10 +120,12 @@ pc_process_lists <- function(lists = c("blacklist_source",
                   #                               sheet = "process",
                   #                               range = googlesheets4::cell_rows(x))
                   # })
-                  googlesheets4::sheet_write(data = current_process_df_pre %>%
-                                               dplyr::slice(-lines_to_remove),
-                                             ss = current_spreadsheet,
-                                             sheet = "process")
+                  if (length(lines_to_remove)>0) {
+                    googlesheets4::sheet_write(data = current_process_df_pre %>%
+                                                 dplyr::slice(-lines_to_remove),
+                                               ss = current_spreadsheet,
+                                               sheet = "process")
+                  }
                 }
               })
 }
