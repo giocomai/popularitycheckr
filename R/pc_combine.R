@@ -49,13 +49,15 @@ pc_combine <- function(...) {
                             .f = function(y) {
                               current_input <- current_function(y)
                               cells_to_fill <- paste0(current_column, which(current_sheet_df[["landingPagePath"]]==y)+1)
-                              purrr::walk(.x = cells_to_fill,
-                                          .f = function(z) {
-                                            googlesheets4::range_write(ss = current_spreadsheet,
-                                                                       data = tibble::tibble(!!dplyr::quo_name(current_field) := current_input),
-                                                                       range = z,
-                                                                       col_names = FALSE)
-                                          })
+                              if(is.na(current_input)==FALSE&current_input!="") {
+                                purrr::walk(.x = cells_to_fill,
+                                            .f = function(z) {
+                                              googlesheets4::range_write(ss = current_spreadsheet,
+                                                                         data = tibble::tibble(!!dplyr::quo_name(current_field) := current_input),
+                                                                         range = z,
+                                                                         col_names = FALSE)
+                                            })
+                              }
                             })
 
               })
