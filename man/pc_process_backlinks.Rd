@@ -7,16 +7,13 @@
 pc_process_backlinks(
   backlinks = NULL,
   lists = c("blacklist_source", "blacklist_referrer", "whitelist_source",
-    "whitelist_referrer"),
-  include_domain = TRUE
+    "whitelist_referrer")
 )
 }
 \arguments{
 \item{backlinks}{A data frame with backlinks, typically generated with `pc_get_backlinks()` or retrieved with `pc_downlodad_backlinks()`}
 
 \item{lists}{A characther vector giving the names of the categories for manual categorisation. Defaults to `c("blacklist_source","blacklist_referrer","whitelist_source","whitelist_referrer")`.}
-
-\item{include_domain}{Logical, defaults to TRUE. Include the base domain in the `landingPagePath` column for clarity, assuming https protocol.}
 }
 \value{
 

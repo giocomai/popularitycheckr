@@ -4,7 +4,6 @@
 #'
 #' @param backlinks A data frame with backlinks, typically generated with `pc_get_backlinks()` or retrieved with `pc_downlodad_backlinks()`
 #' @param lists A characther vector giving the names of the categories for manual categorisation. Defaults to `c("blacklist_source","blacklist_referrer","whitelist_source","whitelist_referrer")`.
-#' @param include_domain Logical, defaults to TRUE. Include the base domain in the `landingPagePath` column for clarity, assuming https protocol.
 #'
 #' @return
 #' @export
@@ -17,8 +16,7 @@ pc_process_backlinks <- function(backlinks = NULL,
                                  lists = c("blacklist_source",
                                            "blacklist_referrer",
                                            "whitelist_source",
-                                           "whitelist_referrer"),
-                                 include_domain = TRUE) {
+                                           "whitelist_referrer")) {
   if (is.null(backlinks)==FALSE) {
     df <- backlinks %>%
       dplyr::group_by(source, fullReferrer, landingPagePath) %>%
@@ -26,11 +24,6 @@ pc_process_backlinks <- function(backlinks = NULL,
       dplyr::arrange(dplyr::desc(n))
 
     df[,lists] <- ""
-
-    if (include_domain == TRUE) {
-      df <- df %>%
-        dplyr::mutate(landingPagePath = paste0("https://", pc_set_domain(), landingPagePath))
-    }
 
     current_spreadsheet <- pc_find_dribble(type = "inputs", content = "process")
 
