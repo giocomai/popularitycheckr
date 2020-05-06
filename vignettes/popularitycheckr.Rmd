@@ -88,3 +88,11 @@ This removes the rows from the "process" spreadsheet and moves it to its own, an
 
 The objective here is similar to that of "inbox zero", i.e. getting all lines out of the `process` sheet and have them categorised in some way.
 
+Once this is done, you can then move whitelisted backlinks to a separate spreadsheet for further processing.
+
+```{r}
+pc_process_move_whitelisted(backlinks = pc_get_backlinks())
+googledrive::drive_browse(file = pc_find_dribble(type = "inputs", content = "combine"))
+```
+
+

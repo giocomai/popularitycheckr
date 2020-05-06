@@ -20,7 +20,9 @@ Imports:
     lubridate,
     purrr,
     stringr,
-    googlesheets4
+    googlesheets4,
+    xml2,
+    rvest
 Suggests: 
     knitr,
     rmarkdown

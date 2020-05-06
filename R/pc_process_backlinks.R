@@ -129,3 +129,51 @@ pc_process_lists <- function(lists = c("blacklist_source",
                 }
               })
 }
+
+
+#' Move whitelisted backlinks to a seprate spreadsheet to be combined with other data
+#'
+#' @param backlinks A data frame with backlinks, typically generated with `pc_get_backlinks()` or retrieved with `pc_downlodad_backlinks()`
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' pc_process_move_whitelisted(pc_get_backlinks())
+#' googledrive::drive_browse(pc_find_dribble(type = "inputs", content = "combine"))
+#' }
+pc_process_move_whitelisted <- function(backlinks) {
+  current_spreadsheet_process <- pc_find_dribble(type = "inputs", content = "process")
+  current_sheet_names_process <- googlesheets4::sheet_names(current_spreadsheet_process)
+
+  whitelist_source <- googlesheets4::read_sheet(ss = current_spreadsheet_process,
+                                                sheet = "whitelist_source")
+
+  whitelist_referrer <- googlesheets4::read_sheet(ss = current_spreadsheet_process,
+                                                  sheet = "whitelist_referrer")
+
+  backlinks_new <- backlinks %>%
+    dplyr::select(source, fullReferrer, landingPagePath)
+    dplyr::filter(is.element(el = source, set = whitelist_source[[1]]) | is.element(el = fullReferrer, set = whitelist_referrer[[1]]))
+
+  current_spreadsheet_combine <- pc_find_dribble(type = "inputs", content = "combine")
+  current_sheet_names_combine <- googlesheets4::sheet_names(current_spreadsheet_combine)
+
+  combine_sheet_pre <- googlesheets4::read_sheet(ss = current_spreadsheet_combine,
+                                                 sheet = "combine")
+
+  if (nrow(combine_sheet_pre)==0) {
+    googlesheets4::write_sheet(data = backlinks_new,
+                               ss = current_spreadsheet_combine,
+                               sheet = "combine")
+  } else {
+    backlinks_up <- backlinks_new %>%
+      dplyr::anti_join(y = combine_sheet_pre,
+                       by = c("source", "fullReferrer", "landingPagePath"))
+
+    googlesheets4::sheet_append(ss = current_spreadsheet_combine,
+                                data = backlinks_up,
+                                sheet = "combine")
+  }
+}

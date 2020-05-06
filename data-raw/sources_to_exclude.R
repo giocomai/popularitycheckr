@@ -34,6 +34,9 @@ sources_to_exclude <- c("m.facebook.com",
                         "mail.google.com",
                         "cn.bing.com",
                         "sync.opera.com",
-                        "webmailtin.pc.tim.it")
+                        "webmailtin.pc.tim.it",
+                        "ecosia.org",
+                        "bitly.com",
+                        "duckduckgo.com")
 
 usethis::use_data(sources_to_exclude, overwrite = TRUE)
