@@ -118,8 +118,7 @@
     <pre class="usage"><span class='fu'>pc_process_backlinks</span>(
   <span class='kw'>backlinks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>lists</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blacklist_source"</span>, <span class='st'>"blacklist_referrer"</span>, <span class='st'>"whitelist_source"</span>,
-    <span class='st'>"whitelist_referrer"</span>),
-  <span class='kw'>include_domain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <span class='st'>"whitelist_referrer"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -132,10 +131,6 @@
     <tr>
       <th>lists</th>
       <td><p>A characther vector giving the names of the categories for manual categorisation. Defaults to `c("blacklist_source","blacklist_referrer","whitelist_source","whitelist_referrer")`.</p></td>
-    </tr>
-    <tr>
-      <th>include_domain</th>
-      <td><p>Logical, defaults to TRUE. Include the base domain in the `landingPagePath` column for clarity, assuming https protocol.</p></td>
     </tr>
     </table>
 

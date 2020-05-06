@@ -118,6 +118,7 @@
     <pre class="usage"><span class='fu'>pc_get_backlinks</span>(
   <span class='kw'>date_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() - <span class='fl'>32</span>, <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>() - <span class='fl'>1</span>),
   <span class='kw'>sources_to_exclude</span> <span class='kw'>=</span> <span class='kw pkg'>popularitycheckr</span><span class='kw ns'>::</span><span class='no'>sources_to_exclude</span>,
+  <span class='kw'>include_domain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ga_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
@@ -131,6 +132,10 @@
     <tr>
       <th>sources_to_exclude</th>
       <td><p>A characther vector of domains to be excluded. By default, a vector of commonly found search engines, social media, and webmail providers. See popularitycheckr::sources_to_exclude</p></td>
+    </tr>
+    <tr>
+      <th>include_domain</th>
+      <td><p>Logical, defaults to TRUE. Include the base domain in the `landingPagePath` column for clarity, assuming https protocol.</p></td>
     </tr>
     <tr>
       <th>ga_id</th>
