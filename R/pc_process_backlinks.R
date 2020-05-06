@@ -147,7 +147,7 @@ pc_process_move_whitelisted <- function(backlinks) {
                                                   sheet = "whitelist_referrer")
 
   backlinks_new <- backlinks %>%
-    dplyr::select(source, fullReferrer, landingPagePath)
+    dplyr::select(source, fullReferrer, landingPagePath) %>%
     dplyr::filter(is.element(el = source, set = whitelist_source[[1]]) | is.element(el = fullReferrer, set = whitelist_referrer[[1]]))
 
   current_spreadsheet_combine <- pc_find_dribble(type = "inputs", content = "combine")
