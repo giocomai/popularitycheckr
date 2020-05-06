@@ -96,3 +96,24 @@ googledrive::drive_browse(file = pc_find_dribble(type = "inputs", content = "com
 ```
 
 
+## Combine with data extracted from the website
+
+Use named functions to place the selected string in the relevant column.
+
+```{r}
+pc_combine(
+  title = function(url) {
+             pc_extract_from_web(url = url,
+                                 container = "title")
+           },
+           date = function(url) {
+             pc_extract_from_web(url = url,
+                                 container = "div",
+                                 container_class = "date") %>%
+               stringr::str_remove(pattern = "[[:alpha:]]+") %>%
+               anytime::anydate()
+             }
+)
+googledrive::drive_browse(file = pc_find_dribble(type = "inputs", content = "combine"))
+```
+

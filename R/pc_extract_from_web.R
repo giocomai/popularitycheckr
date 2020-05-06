@@ -24,9 +24,13 @@ pc_extract_from_web <- function(url,
                                 no_children = NULL) {
   temp <-  tryCatch(expr = xml2::read_html(url),
                     error = function(e) {
-                      warning(paste("Could not read", url))
                       NA
                     })
+
+  if(is.na(temp)) {
+    usethis::ui_oops(paste("Could not read", url))
+    return("")
+  }
 
   if (is.element("xml_node", set = class(temp))==TRUE) {
     if (is.null(container_class)==TRUE&is.null(container_id)==TRUE) {

@@ -46,7 +46,7 @@ pc_get_backlinks <- function(date_range = c(Sys.Date()-32, Sys.Date()-1),
 
   if (include_domain == TRUE) {
     df <- df %>%
-      dplyr::mutate(landingPagePath = paste0("https://", pc_set_domain(), landingPagePath))
+      dplyr::mutate(landingPagePath = paste0("https://", pc_set_domain(), "/", landingPagePath))
   }
 
   df
