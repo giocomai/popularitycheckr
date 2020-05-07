@@ -36,8 +36,7 @@ pc_process_backlinks <- function(backlinks = NULL,
     } else {
       new_df <- df %>%
         dplyr::anti_join(y = remote_sheet_pre,
-                         by = c("fullReferrer", "landingPagePath")) %>%
-        dplyr::mutate(date = as.Date(date))
+                         by = c("fullReferrer", "landingPagePath"))
       if (nrow(new_df)>0) {
         googlesheets4::sheet_append(ss = current_spreadsheet,
                                     data = new_df,
