@@ -75,6 +75,11 @@ pc_process_lists <- function(lists = c("blacklist_source",
                 current_process_df_pre <- googlesheets4::read_sheet(ss = current_spreadsheet,
                                                                     sheet = "process")
                 source_lines <- which(is.na(current_process_df_pre[[x]])==FALSE)
+
+                if (length(source_lines)==0) {
+                  return(NULL)
+                }
+
                 if (stringr::str_detect(string = x, pattern = "source")) {
                   source_df_new <- tibble::tibble(source = unique(current_process_df_pre$source[source_lines])) %>%
                     dplyr::arrange(source)
@@ -98,26 +103,25 @@ pc_process_lists <- function(lists = c("blacklist_source",
                   googlesheets4::sheet_write(data = source_df_up,
                                              ss = current_spreadsheet,
                                              sheet = x)
+                }
+                if (stringr::str_detect(string = x, pattern = "source")) {
+                  lines_to_remove <- which(is.element(el = current_process_df_pre[["source"]], set = source_df_up[[1]]))
+                } else if (stringr::str_detect(string = x, pattern = "referrer")) {
+                  lines_to_remove <- which(is.element(el = current_process_df_pre[["fullReferrer"]], set = source_df_up[[1]]))
+                }
 
-                  if (stringr::str_detect(string = x, pattern = "source")) {
-                    lines_to_remove <- which(is.element(el = current_process_df_pre[["source"]], set = source_df_up[[1]]))
-                  } else if (stringr::str_detect(string = x, pattern = "referrer")) {
-                    lines_to_remove <- which(is.element(el = current_process_df_pre[["fullReferrer"]], set = source_df_up[[1]]))
-                  }
-
-                  ### line by line option: slower and more risky in case of contemporary edits?
-                  # purrr::walk(.x = rev(source_lines+1),
-                  #             .f = function(x) {
-                  #   googlesheets4::range_delete(ss = current_spreadsheet,
-                  #                               sheet = "process",
-                  #                               range = googlesheets4::cell_rows(x))
-                  # })
-                  if (length(lines_to_remove)>0) {
-                    googlesheets4::sheet_write(data = current_process_df_pre %>%
-                                                 dplyr::slice(-lines_to_remove),
-                                               ss = current_spreadsheet,
-                                               sheet = "process")
-                  }
+                ### line by line option: slower and more risky in case of contemporary edits?
+                # purrr::walk(.x = rev(source_lines+1),
+                #             .f = function(x) {
+                #   googlesheets4::range_delete(ss = current_spreadsheet,
+                #                               sheet = "process",
+                #                               range = googlesheets4::cell_rows(x))
+                # })
+                if (length(lines_to_remove)>0) {
+                  googlesheets4::sheet_write(data = current_process_df_pre %>%
+                                               dplyr::slice(-lines_to_remove),
+                                             ss = current_spreadsheet,
+                                             sheet = "process")
                 }
               })
 }
