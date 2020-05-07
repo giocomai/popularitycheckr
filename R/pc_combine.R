@@ -49,7 +49,7 @@ pc_combine <- function(..., url_column = "landingPagePath") {
                 purrr::walk(.x = unique(current_sheet_df[[url_column]][is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""]),
                             .f = function(y) {
                               current_input <- current_function(y)
-                              cells_to_fill <- paste0(current_column, which(current_sheet_df[[url_column]]==y)+1)
+                              cells_to_fill <- paste0(current_column, which(current_sheet_df[[url_column]]==y&(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""))+1)
                               if(is.na(current_input)==FALSE&current_input!="") {
                                 purrr::walk(.x = cells_to_fill,
                                             .f = function(z) {
