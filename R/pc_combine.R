@@ -1,6 +1,7 @@
 #' Combine whitelisted sources and referrers with additional data extracted from a website
 #'
 #' @param ... Named functions
+#' @param url_column Name of the column to be used for the input url.
 #'
 #' @return Nothing, used for its side effects (fills relevant column in the `combine` spreadsheet)
 #' @export
@@ -21,7 +22,7 @@
 #' )
 #' }
 #'
-pc_combine <- function(...) {
+pc_combine <- function(..., url_column = "landingPagePath") {
   dots <- list(...)
   current_spreadsheet <- pc_find_dribble(type = "inputs", content = "combine")
 
@@ -45,10 +46,10 @@ pc_combine <- function(...) {
                   current_column <- LETTERS[which(colnames(current_sheet_df)==current_field)]
                 }
 
-                purrr::walk(.x = unique(current_sheet_df[["landingPagePath"]][is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""]),
+                purrr::walk(.x = unique(current_sheet_df[[url_column]][is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""]),
                             .f = function(y) {
                               current_input <- current_function(y)
-                              cells_to_fill <- paste0(current_column, which(current_sheet_df[["landingPagePath"]]==y)+1)
+                              cells_to_fill <- paste0(current_column, which(current_sheet_df[[url_column]]==y)+1)
                               if(is.na(current_input)==FALSE&current_input!="") {
                                 purrr::walk(.x = cells_to_fill,
                                             .f = function(z) {

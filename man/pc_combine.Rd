@@ -4,10 +4,12 @@
 \alias{pc_combine}
 \title{Combine whitelisted sources and referrers with additional data extracted from a website}
 \usage{
-pc_combine(...)
+pc_combine(..., url_column = "landingPagePath")
 }
 \arguments{
 \item{...}{Named functions}
+
+\item{url_column}{Name of the column to be used for the input url.}
 }
 \value{
 Nothing, used for its side effects (fills relevant column in the `combine` spreadsheet)
