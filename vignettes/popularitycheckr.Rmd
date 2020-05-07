@@ -103,17 +103,29 @@ Use named functions to place the selected string in the relevant column.
 ```{r}
 pc_combine(
   title = function(url) {
-             pc_extract_from_web(url = url,
-                                 container = "title")
-           },
-           date = function(url) {
-             pc_extract_from_web(url = url,
-                                 container = "div",
-                                 container_class = "date") %>%
-               stringr::str_remove(pattern = "[[:alpha:]]+") %>%
-               anytime::anydate()
-             }
+    pc_extract_from_web(url = url,
+                        container = "title") %>%
+      stringr::str_remove(pattern = " /.*")
+  },
+    language = function(url) {
+    xml2::read_html(x = url) %>% 
+      rvest::html_nodes(xpath = "//meta[@name='Content-language']") %>% 
+      rvest::html_attr('content')
+  },
+  date = function(url) {
+    pc_extract_from_web(url = url,
+                        container = "div",
+                        container_class = "date") %>%
+      stringr::str_remove(pattern = "[[:alpha:]]+[[:punct:]]?[[:space:]]?") %>%
+      lubridate::dmy(quiet = TRUE,
+                     locale = xml2::read_html(x = url) %>% 
+                       rvest::html_nodes(xpath = "//meta[@name='Content-language']") %>% 
+                       rvest::html_attr('content') %>% stringr::str_replace("-", "_")) %>% 
+      as.character()
+  }
 )
 googledrive::drive_browse(file = pc_find_dribble(type = "inputs", content = "combine"))
+
+
 ```
 

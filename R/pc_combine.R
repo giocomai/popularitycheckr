@@ -24,11 +24,11 @@
 pc_combine <- function(...) {
   dots <- list(...)
   current_spreadsheet <- pc_find_dribble(type = "inputs", content = "combine")
-  current_sheet_df <- googlesheets4::read_sheet(ss = current_spreadsheet,
-                                                sheet = "combine")
 
   purrr::walk(.x = seq_along(dots),
               .f = function(x) {
+                current_sheet_df <- googlesheets4::read_sheet(ss = current_spreadsheet,
+                                                              sheet = "combine")
                 current_field <- names(dots)[x]
                 current_function <- dots[[x]]
                 if (is.element(el = current_field, set = colnames(current_sheet_df))==FALSE) {
@@ -45,13 +45,14 @@ pc_combine <- function(...) {
                   current_column <- LETTERS[which(colnames(current_sheet_df)==current_field)]
                 }
 
-                purrr::walk(.x = current_sheet_df[["landingPagePath"]][is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""],
+                purrr::walk(.x = unique(current_sheet_df[["landingPagePath"]][is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""]),
                             .f = function(y) {
                               current_input <- current_function(y)
                               cells_to_fill <- paste0(current_column, which(current_sheet_df[["landingPagePath"]]==y)+1)
                               if(is.na(current_input)==FALSE&current_input!="") {
                                 purrr::walk(.x = cells_to_fill,
                                             .f = function(z) {
+                                              #Sys.sleep(0.2)
                                               googlesheets4::range_write(ss = current_spreadsheet,
                                                                          data = tibble::tibble(!!dplyr::quo_name(current_field) := current_input),
                                                                          range = z,
