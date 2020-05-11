@@ -22,7 +22,8 @@ Imports:
     stringr,
     googlesheets4,
     xml2,
-    rvest
+    rvest,
+    httr
 Suggests: 
     knitr,
     rmarkdown
