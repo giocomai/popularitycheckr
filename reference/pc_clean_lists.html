@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • popularitycheckr</title>
+<title>Removes elements already whitelisted or blacklisted — pc_clean_lists • popularitycheckr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Removes elements already whitelisted or blacklisted — pc_clean_lists" />
+<meta property="og:description" content="Removes elements already whitelisted or blacklisted" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -103,120 +104,43 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Removes elements already whitelisted or blacklisted</h1>
+    
+    <div class="hidden name"><code>pc_clean_lists.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Removes elements already whitelisted or blacklisted</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>pc_clean_lists</span>(
+  <span class='kw'>lists</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blacklist_source"</span>, <span class='st'>"blacklist_referrer"</span>, <span class='st'>"whitelist_source"</span>,
+    <span class='st'>"whitelist_referrer"</span>),
+  <span class='kw'>spreadsheet</span> <span class='kw'>=</span> <span class='st'>"process"</span>
+)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="pc_clean_lists.html">pc_clean_lists()</a></code> </p>
-        </td>
-        <td><p>Removes elements already whitelisted or blacklisted</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_combine.html">pc_combine()</a></code> </p>
-        </td>
-        <td><p>Combine whitelisted sources and referrers with additional data extracted from a website</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_downlodad_backlinks.html">pc_downlodad_backlinks()</a></code> </p>
-        </td>
-        <td><p>Downloads backlinks stored in Google Drive</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_extract_from_web.html">pc_extract_from_web()</a></code> </p>
-        </td>
-        <td><p>Facilitates extracting strings from web pages</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_find_dribble.html">pc_find_dribble()</a></code> </p>
-        </td>
-        <td><p>Find dribbles used by popularitycheckr</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_get_backlinks.html">pc_get_backlinks()</a></code> </p>
-        </td>
-        <td><p>Get referral backlinks to my website.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_get_ia_url.html">pc_get_ia_url()</a></code> </p>
-        </td>
-        <td><p>Gets an Archive.org Wayback Machine URL</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_process_backlinks.html">pc_process_backlinks()</a></code> </p>
-        </td>
-        <td><p>Process backlinks</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_process_inputs.html">pc_process_inputs()</a></code> </p>
-        </td>
-        <td><p>Process manual inputs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_process_lists.html">pc_process_lists()</a></code> </p>
-        </td>
-        <td><p>Process whitelists/blacklists or other custom lists</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_process_move_whitelisted.html">pc_process_move_whitelisted()</a></code> </p>
-        </td>
-        <td><p>Move whitelisted backlinks to a separate spreadsheet to be combined with other data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_set_domain.html">pc_set_domain()</a></code> </p>
-        </td>
-        <td><p>Set or retrieve the domain you are currently working with as an environment variable</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_set_ga_id.html">pc_set_ga_id()</a></code> </p>
-        </td>
-        <td><p>Set or retrieve the Google Analytics viewId as an environment variable</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pc_upload_backlinks.html">pc_upload_backlinks()</a></code> </p>
-        </td>
-        <td><p>Uploads ga backlinks to Google Drive</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>spreadsheet</th>
+      <td></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>pc_clean_lists</span>()
+}</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
