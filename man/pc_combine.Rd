@@ -4,7 +4,7 @@
 \alias{pc_combine}
 \title{Combine whitelisted sources and referrers with additional data extracted from a website}
 \usage{
-pc_combine(..., url_column = "landingPagePath")
+pc_combine(..., url_column = "landingPagePath", sheet = "combine")
 }
 \arguments{
 \item{...}{Named functions}

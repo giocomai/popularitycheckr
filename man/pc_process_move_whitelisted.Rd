@@ -2,7 +2,7 @@
 % Please edit documentation in R/pc_process_backlinks.R
 \name{pc_process_move_whitelisted}
 \alias{pc_process_move_whitelisted}
-\title{Move whitelisted backlinks to a seprate spreadsheet to be combined with other data}
+\title{Move whitelisted backlinks to a separate spreadsheet to be combined with other data}
 \usage{
 pc_process_move_whitelisted(backlinks)
 }
@@ -13,7 +13,7 @@ pc_process_move_whitelisted(backlinks)
 
 }
 \description{
-Move whitelisted backlinks to a seprate spreadsheet to be combined with other data
+Move whitelisted backlinks to a separate spreadsheet to be combined with other data
 }
 \examples{
 \dontrun{

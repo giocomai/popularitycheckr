@@ -22,14 +22,14 @@
 #' )
 #' }
 #'
-pc_combine <- function(..., url_column = "landingPagePath") {
+pc_combine <- function(..., url_column = "landingPagePath", sheet = "combine") {
   dots <- list(...)
   current_spreadsheet <- pc_find_dribble(type = "inputs", content = "combine")
 
   purrr::walk(.x = seq_along(dots),
               .f = function(x) {
                 current_sheet_df <- googlesheets4::read_sheet(ss = current_spreadsheet,
-                                                              sheet = "combine")
+                                                              sheet = sheet)
                 current_field <- names(dots)[x]
                 current_function <- dots[[x]]
                 if (is.element(el = current_field, set = colnames(current_sheet_df))==FALSE) {
@@ -38,7 +38,7 @@ pc_combine <- function(..., url_column = "landingPagePath") {
                   current_column <- LETTERS[ncol(current_sheet_df)+1]
                   googlesheets4::range_write(ss = current_spreadsheet,
                                              data = empty_df,
-                                             sheet = "combine",
+                                             sheet = sheet,
                                              col_names = TRUE,
                                              range = current_column)
                   current_sheet_df[[current_field]] <- NA
@@ -46,7 +46,7 @@ pc_combine <- function(..., url_column = "landingPagePath") {
                   current_column <- LETTERS[which(colnames(current_sheet_df)==current_field)]
                 }
 
-                purrr::walk(.x = unique(current_sheet_df[[url_column]][is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""]),
+                purrr::walk(.x = unique(current_sheet_df[[url_column]][(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]=="")&(is.na(current_sheet_df[[url_column]])==FALSE)]),
                             .f = function(y) {
                               current_input <- current_function(y)
                               cells_to_fill <- paste0(current_column, which(current_sheet_df[[url_column]]==y&(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""))+1)
@@ -56,6 +56,7 @@ pc_combine <- function(..., url_column = "landingPagePath") {
                                               #Sys.sleep(0.2)
                                               googlesheets4::range_write(ss = current_spreadsheet,
                                                                          data = tibble::tibble(!!dplyr::quo_name(current_field) := current_input),
+                                                                         sheet = sheet,
                                                                          range = z,
                                                                          col_names = FALSE)
                                             })
