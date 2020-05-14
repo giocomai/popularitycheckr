@@ -89,7 +89,7 @@ pc_process_lists <- function(lists = c("blacklist_source",
   purrr::walk(.x = lists,
               .f = function(x) {
                 current_process_df_pre <- googlesheets4::read_sheet(ss = current_spreadsheet,
-                                                                    sheet = "process")
+                                                                    sheet = 1)
                 select_lines <- which(is.na(current_process_df_pre[[x]])==FALSE)
 
                 if (length(select_lines)==0) {
@@ -172,6 +172,8 @@ pc_process_move_whitelisted <- function(backlinks) {
   current_spreadsheet_combine <- pc_find_dribble(type = "inputs", content = "combine")
   current_sheet_names_combine <- googlesheets4::sheet_names(current_spreadsheet_combine)
 
+  combine_sheet_main <- googlesheets4::read_sheet(ss = current_spreadsheet_combine,
+                                                  sheet = 1)
   combine_sheet_pre <- purrr::map_dfr(.x = current_sheet_names_combine,
                                       .f = function(x) {
                                         googlesheets4::read_sheet(ss = current_spreadsheet_combine,
@@ -185,12 +187,15 @@ pc_process_move_whitelisted <- function(backlinks) {
                                sheet = 1)
   } else {
     backlinks_up <- backlinks_new %>%
+      dplyr::distinct() %>%
       dplyr::anti_join(y = combine_sheet_pre,
                        by = c("source", "fullReferrer", "landingPagePath"))
 
-    googlesheets4::sheet_append(ss = current_spreadsheet_combine,
-                                data = backlinks_up,
-                                sheet = 1)
+    googlesheets4::range_write(ss = current_spreadsheet_combine,
+                               data = backlinks_up,
+                               range = paste0(LETTERS[which(colnames(combine_sheet_main)=="source")],nrow(combine_sheet_main)+2),
+                               sheet = 1,
+                               col_names = FALSE)
   }
 }
 
@@ -199,7 +204,7 @@ pc_process_move_whitelisted <- function(backlinks) {
 
 #' Process manual inputs
 #'
-#' Takes manual inputs, records them in lists in other sheets of the same worksheet, and removes them from the "process" sheet.
+#' Takes manual inputs, records them in lists in other sheets of the same worksheet, and removes them from the "combine" (or other) sheet.
 #'
 #' @param lists A characther vector giving the names of the categories for manual categorisation. Defaults to `c("blacklist_source","blacklist_referrer","whitelist_source","whitelist_referrer")`.
 #'
