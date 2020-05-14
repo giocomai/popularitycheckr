@@ -20,8 +20,8 @@ pc_process_backlinks <- function(backlinks = NULL,
   if (is.null(backlinks)==FALSE) {
     df <- backlinks %>%
       dplyr::group_by(source, fullReferrer, landingPagePath) %>%
-      dplyr::tally() %>%
-      dplyr::arrange(dplyr::desc(n))
+      dplyr::summarise(sessions = sum(sessions)) %>%
+      dplyr::arrange(dplyr::desc(sessions), fullReferrer)
 
     df[,lists] <- ""
 
@@ -49,7 +49,7 @@ pc_process_backlinks <- function(backlinks = NULL,
         dplyr::rename(fullReferrer = 1)
 
       new_df <- df %>%
-        dplyr::anti_join(y = remote_sheet_pre %>% dplyr::slice(1:1000),
+        dplyr::anti_join(y = remote_sheet_pre,
                          by = c("fullReferrer", "landingPagePath")) %>%
         dplyr::anti_join(y = referrers_to_exclude, by = "fullReferrer") %>%
         dplyr::anti_join(y = sources_to_exclude, by = "source")
@@ -194,8 +194,7 @@ pc_process_move_whitelisted <- function(backlinks) {
     googlesheets4::range_write(ss = current_spreadsheet_combine,
                                data = backlinks_up,
                                range = paste0(LETTERS[which(colnames(combine_sheet_main)=="source")],nrow(combine_sheet_main)+2),
-                               sheet = 1,
-                               col_names = FALSE)
+                               sheet = 1,col_names = FALSE)
   }
 }
 
