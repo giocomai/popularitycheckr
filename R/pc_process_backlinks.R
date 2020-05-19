@@ -108,7 +108,7 @@ pc_process_lists <- function(lists = c("blacklist_source",
                   select_df_pre <- googlesheets4::read_sheet(ss = current_spreadsheet,
                                                                        sheet = x)
                   select_df_up <- dplyr::bind_rows(select_df_pre, select_df_new) %>%
-                    dplyr::distinct(source) %>%
+                    dplyr::distinct(source, .keep_all = TRUE) %>%
                     dplyr::arrange(source)
                 } else {
                   googlesheets4::sheet_add(ss = current_spreadsheet, sheet = x)
