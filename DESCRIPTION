@@ -23,7 +23,8 @@ Imports:
     googlesheets4,
     xml2,
     rvest,
-    httr
+    httr,
+    googledrive
 Suggests: 
     knitr,
     rmarkdown
