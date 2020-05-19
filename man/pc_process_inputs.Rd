@@ -13,7 +13,7 @@ pc_process_inputs(columns = c("public", "dismiss"), spreadsheet = "combine")
 Nothing, used for its side effects.
 }
 \description{
-Takes manual inputs, records them in lists in other sheets of the same worksheet, and removes them from the "process" sheet.
+Takes manual inputs, records them in lists in other sheets of the same worksheet, and removes them from the "combine" (or other) sheet.
 }
 \examples{
 \dontrun{
