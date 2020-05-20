@@ -160,10 +160,12 @@ pc_process_move_whitelisted <- function(backlinks) {
   current_sheet_names_process <- googlesheets4::sheet_names(current_spreadsheet_process)
 
   whitelist_source <- googlesheets4::read_sheet(ss = current_spreadsheet_process,
-                                                sheet = "whitelist_source")
+                                                sheet = "whitelist_source",
+                                                col_types = "c")
 
   whitelist_referrer <- googlesheets4::read_sheet(ss = current_spreadsheet_process,
-                                                  sheet = "whitelist_referrer")
+                                                  sheet = "whitelist_referrer",
+                                                  col_types = "c")
 
   backlinks_new <- backlinks %>%
     dplyr::select(source, fullReferrer, landingPagePath) %>%
@@ -173,11 +175,13 @@ pc_process_move_whitelisted <- function(backlinks) {
   current_sheet_names_combine <- googlesheets4::sheet_names(current_spreadsheet_combine)
 
   combine_sheet_main <- googlesheets4::read_sheet(ss = current_spreadsheet_combine,
-                                                  sheet = 1)
+                                                  sheet = 1,
+                                                  col_types = "c")
   combine_sheet_pre <- purrr::map_dfr(.x = current_sheet_names_combine,
                                       .f = function(x) {
                                         googlesheets4::read_sheet(ss = current_spreadsheet_combine,
-                                                                  sheet = x)
+                                                                  sheet = x,
+                                                                  col_types = "c")
                                       })
 
 
@@ -228,7 +232,8 @@ pc_process_inputs <- function(columns = c("public",
   purrr::walk(.x = columns,
               .f = function(x) {
                 current_process_df_pre <- googlesheets4::read_sheet(ss = current_spreadsheet,
-                                                                    sheet = 1)
+                                                                    sheet = 1,
+                                                                    col_types = "c")
                 select_df_new <- current_process_df_pre %>%
                   dplyr::slice(which(is.na(current_process_df_pre[[x]])==FALSE))
 
@@ -272,8 +277,8 @@ pc_process_inputs <- function(columns = c("public",
 
 #' Removes elements already whitelisted or blacklisted
 #'
-#' @param lists
-#' @param spreadsheet
+#' @param lists Names of whitelists and blacklists (they correspond to tab names)
+#' @param spreadsheet Dribble or name of spreadsheet content as understood by `pc_find_dribble()`.
 #'
 #' @return
 #' @export
