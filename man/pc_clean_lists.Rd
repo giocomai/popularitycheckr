@@ -11,7 +11,9 @@ pc_clean_lists(
 )
 }
 \arguments{
-\item{spreadsheet}{}
+\item{lists}{Names of whitelists and blacklists (they correspond to tab names)}
+
+\item{spreadsheet}{Dribble or name of spreadsheet content as understood by `pc_find_dribble()`.}
 }
 \value{
 
