@@ -19,6 +19,9 @@ pc_set_domain <- function(domain = NULL) {
   } else {
     Sys.setenv(popularitychecker_domain = domain)
   }
-  if (domain=="") usethis::ui_todo("Set domain `pc_set_domain()`")
+  if (domain=="") {
+    usethis::ui_todo("Set domain with `pc_set_domain()`")
+    stop("No domain set")
+  }
   domain
 }
