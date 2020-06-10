@@ -46,7 +46,7 @@ pc_combine <- function(..., url_column = "landingPagePath", sheet = "combine") {
                   current_column <- LETTERS[which(colnames(current_sheet_df)==current_field)]
                 }
 
-                purrr::walk(.x = unique(current_sheet_df[[url_column]][(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]=="")&(is.na(current_sheet_df[[url_column]])==FALSE)]),
+                purrr::walk(.x = unique(current_sheet_df[[url_column]][(is.null(current_sheet_df[[current_field]])|(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]=="")&(is.na(current_sheet_df[[url_column]])==FALSE)]),
                             .f = function(y) {
                               current_input <- current_function(y)
                               cells_to_fill <- paste0(current_column, which(current_sheet_df[[url_column]]==y&(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""))+1)
