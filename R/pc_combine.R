@@ -50,7 +50,7 @@ pc_combine <- function(..., url_column = "landingPagePath", sheet = "combine") {
                             .f = function(y) {
                               current_input <- current_function(y)
                               cells_to_fill <- paste0(current_column, which(current_sheet_df[[url_column]]==y&(is.na(current_sheet_df[[current_field]])|current_sheet_df[[current_field]]==""))+1)
-                              if(is.na(current_input)==FALSE&current_input!="") {
+                              if(is.na(current_input)==FALSE&as.character(current_input)!="") {
                                 purrr::walk(.x = cells_to_fill,
                                             .f = function(z) {
                                               #Sys.sleep(0.2)
