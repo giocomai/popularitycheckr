@@ -24,7 +24,8 @@ Imports:
     xml2,
     rvest,
     httr,
-    googledrive
+    googledrive,
+    usethis
 Suggests: 
     knitr,
     rmarkdown
