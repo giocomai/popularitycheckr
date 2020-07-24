@@ -60,7 +60,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="popularitycheckr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>An introduction to popularitycheckr</h1>
@@ -73,74 +73,96 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">popularitycheckr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"tidyverse"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">popularitycheckr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"tidyverse"</span>)
+</pre></div>
 <p>First things first: to get data, we first need data.</p>
 <div id="get-the-data-from-google-analytics" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-the-data-from-google-analytics" class="anchor"></a>Get the data from Google Analytics</h1>
 <p>Let’s get them from Google Analytics. In order to access data, we need to authenticate and then identify the id for the specific website we want to analyse. If you accept to have an authentication token stored locally, you’ll need to this step only once. Check your account list with <code><a href="https://code.markedmondson.me/googleAnalyticsR//reference/ga_account_list.html">ga_account_list()</a></code> and find the <code>viewId</code> for the one you want to analyse.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"googleAnalyticsR"</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="http://code.markedmondson.me/googleAnalyticsR">"googleAnalyticsR"</a></span>)
 
 <span class="fu"><a href="https://code.markedmondson.me/googleAnalyticsR//reference/ga_auth.html">ga_auth</a></span>()
 
-<span class="fu"><a href="https://code.markedmondson.me/googleAnalyticsR//reference/ga_account_list.html">ga_account_list</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu">select</span>(<span class="no">websiteUrl</span>, <span class="no">viewId</span>)</pre></body></html></div>
+<span class="fu"><a href="https://code.markedmondson.me/googleAnalyticsR//reference/ga_account_list.html">ga_account_list</a></span>() <span class="op">%&gt;%</span> 
+  <span class="fu">select</span>(<span class="kw">websiteUrl</span>, <span class="kw">viewId</span>)
+</pre></div>
 <p>In order to store the viewId as an environment variable, removing the need to specify it at every function call you can use <code><a href="../reference/pc_set_ga_id.html">pc_set_ga_id()</a></code>. This needs to be set once per session.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_set_ga_id.html">pc_set_ga_id</a></span>(<span class="fl">1234567</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_set_ga_id.html">pc_set_ga_id</a></span>(<span class="fl">1234567</span>)
+</pre></div>
 <p>Let’s get all backlinks to our website in the last month. Only essential data will be retained: <code>source</code>, <code>fullReferrer</code> (i.e. the full link to the page from where the visitor arrived), <code>landingPagePath</code> (i.e. the full URL, without domain, where the user arrived on our website), and <code>sessions</code> (i.e. the number of sessions) generated in this way in the given time period.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">backlinks</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>(<span class="kw">date_range</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()-<span class="fl">32</span>,
-                                             <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()-<span class="fl">1</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">backlinks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>(date_range = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()<span class="op">-</span><span class="fl">32</span>,
+                                             <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()<span class="op">-</span><span class="fl">1</span>))
+</pre></div>
 <p>These backlinks can be stored for reference and direct consultations on Google Drive, with:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>(<span class="no">backlinks</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>(<span class="kw">backlinks</span>)
+</pre></div>
 <p>Only new data will be uploaded, so data on the current date should not be included. The uploading can be piped, e.g.:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>() <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/pc_upload_backlinks.html">pc_upload_backlinks</a></span>()
+</pre></div>
 <div id="process-backlinks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#process-backlinks" class="anchor"></a>Process backlinks</h2>
 <p>The following command creates the spreadsheet where manual input is given about sources to be whitelisted or blacklisted (this is in draft stage, does not currently process further).</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_process_backlinks.html">pc_process_backlinks</a></span>(<span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_process_backlinks.html">pc_process_backlinks</a></span>(<span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>())
+</pre></div>
 <p>Then it’s time to load the relevant spreadsheet, and manually input which sources or specific referrals should be whitelistes or blacklisted. To open in your browser the relevant spreadsheet:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw pkg">googledrive</span><span class="kw ns">::</span><span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"inputs"</span>, <span class="kw">content</span> <span class="kw">=</span> <span class="st">"process"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">googledrive</span>::<span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(file = <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(type = <span class="st">"inputs"</span>, content = <span class="st">"process"</span>))
+</pre></div>
 <p>Put an <code>x</code> (or whatever characther you like) in the relevant column to categorise sources/referrers.</p>
 <p>To process the inputs, run the command:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_process_lists.html">pc_process_lists</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_process_lists.html">pc_process_lists</a></span>()
+</pre></div>
 <p>This removes the rows from the “process” spreadsheet and moves it to its own, and the removes <em>all</em> of the lines which use that given source (or each line mentioning that specific referrer).</p>
 <p>The objective here is similar to that of “inbox zero”, i.e. getting all lines out of the <code>process</code> sheet and have them categorised in some way.</p>
 <p>Once this is done, you can then move whitelisted backlinks to a separate spreadsheet for further processing.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_process_move_whitelisted.html">pc_process_move_whitelisted</a></span>(<span class="kw">backlinks</span> <span class="kw">=</span> <span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>())
-<span class="kw pkg">googledrive</span><span class="kw ns">::</span><span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"inputs"</span>, <span class="kw">content</span> <span class="kw">=</span> <span class="st">"combine"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_process_move_whitelisted.html">pc_process_move_whitelisted</a></span>(backlinks = <span class="fu"><a href="../reference/pc_get_backlinks.html">pc_get_backlinks</a></span>())
+<span class="kw">googledrive</span>::<span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(file = <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(type = <span class="st">"inputs"</span>, content = <span class="st">"combine"</span>))
+</pre></div>
 </div>
 <div id="combine-with-data-extracted-from-the-website" class="section level2">
 <h2 class="hasAnchor">
 <a href="#combine-with-data-extracted-from-the-website" class="anchor"></a>Combine with data extracted from the website</h2>
 <p>Use named functions to place the selected string in the relevant column.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/pc_combine.html">pc_combine</a></span>(
-  <span class="kw">title</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">url</span>) {
-    <span class="fu"><a href="../reference/pc_extract_from_web.html">pc_extract_from_web</a></span>(<span class="kw">url</span> <span class="kw">=</span> <span class="no">url</span>,
-                        <span class="kw">container</span> <span class="kw">=</span> <span class="st">"title"</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span>(<span class="kw">pattern</span> <span class="kw">=</span> <span class="st">" /.*"</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="../reference/pc_combine.html">pc_combine</a></span>(
+  title = <span class="fu">function</span>(<span class="kw">url</span>) {
+    <span class="fu"><a href="../reference/pc_extract_from_web.html">pc_extract_from_web</a></span>(url = <span class="kw">url</span>,
+                        container = <span class="st">"title"</span>) <span class="op">%&gt;%</span>
+      <span class="kw">stringr</span>::<span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span>(pattern = <span class="st">" /.*"</span>)
   },
-    <span class="kw">language</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">url</span>) {
-    <span class="kw pkg">xml2</span><span class="kw ns">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">url</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">rvest</span><span class="kw ns">::</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="kw">xpath</span> <span class="kw">=</span> <span class="st">"//meta[@name='Content-language']"</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">rvest</span><span class="kw ns">::</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">'content'</span>)
+    language = <span class="fu">function</span>(<span class="kw">url</span>) {
+    <span class="kw">xml2</span>::<span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span>(x = <span class="kw">url</span>) <span class="op">%&gt;%</span> 
+      <span class="kw">rvest</span>::<span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(xpath = <span class="st">"//meta[@name='Content-language']"</span>) <span class="op">%&gt;%</span> 
+      <span class="kw">rvest</span>::<span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">'content'</span>)
   },
-  <span class="kw">date</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">url</span>) {
-    <span class="fu"><a href="../reference/pc_extract_from_web.html">pc_extract_from_web</a></span>(<span class="kw">url</span> <span class="kw">=</span> <span class="no">url</span>,
-                        <span class="kw">container</span> <span class="kw">=</span> <span class="st">"div"</span>,
-                        <span class="kw">container_class</span> <span class="kw">=</span> <span class="st">"date"</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span>(<span class="kw">pattern</span> <span class="kw">=</span> <span class="st">"[[:alpha:]]+[[:punct:]]?[[:space:]]?"</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">lubridate</span><span class="kw ns">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span>(<span class="kw">quiet</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                     <span class="kw">locale</span> <span class="kw">=</span> <span class="kw pkg">xml2</span><span class="kw ns">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">url</span>) <span class="kw">%&gt;%</span>
-                       <span class="kw pkg">rvest</span><span class="kw ns">::</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="kw">xpath</span> <span class="kw">=</span> <span class="st">"//meta[@name='Content-language']"</span>) <span class="kw">%&gt;%</span>
-                       <span class="kw pkg">rvest</span><span class="kw ns">::</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">'content'</span>) <span class="kw">%&gt;%</span> <span class="kw pkg">stringr</span><span class="kw ns">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span>(<span class="st">"-"</span>, <span class="st">"_"</span>)) <span class="kw">%&gt;%</span>
+  date = <span class="fu">function</span>(<span class="kw">url</span>) {
+    <span class="fu"><a href="../reference/pc_extract_from_web.html">pc_extract_from_web</a></span>(url = <span class="kw">url</span>,
+                        container = <span class="st">"div"</span>,
+                        container_class = <span class="st">"date"</span>) <span class="op">%&gt;%</span>
+      <span class="kw">stringr</span>::<span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span>(pattern = <span class="st">"[[:alpha:]]+[[:punct:]]?[[:space:]]?"</span>) <span class="op">%&gt;%</span>
+      <span class="kw">lubridate</span>::<span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span>(quiet = <span class="fl">TRUE</span>,
+                     locale = <span class="kw">xml2</span>::<span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span>(x = <span class="kw">url</span>) <span class="op">%&gt;%</span> 
+                       <span class="kw">rvest</span>::<span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(xpath = <span class="st">"//meta[@name='Content-language']"</span>) <span class="op">%&gt;%</span> 
+                       <span class="kw">rvest</span>::<span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">'content'</span>) <span class="op">%&gt;%</span> <span class="kw">stringr</span>::<span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span>(<span class="st">"-"</span>, <span class="st">"_"</span>)) <span class="op">%&gt;%</span> 
       <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>()
   }
 )
-<span class="kw pkg">googledrive</span><span class="kw ns">::</span><span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"inputs"</span>, <span class="kw">content</span> <span class="kw">=</span> <span class="st">"combine"</span>))</pre></body></html></div>
+<span class="kw">googledrive</span>::<span class="fu"><a href="https://googledrive.tidyverse.org/reference/drive_browse.html">drive_browse</a></span>(file = <span class="fu"><a href="../reference/pc_find_dribble.html">pc_find_dribble</a></span>(type = <span class="st">"inputs"</span>, content = <span class="st">"combine"</span>))
+</pre></div>
 </div>
 </div>
   </div>
