@@ -115,7 +115,7 @@
     <p>Combine whitelisted sources and referrers with additional data extracted from a website</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pc_combine</span>(<span class='kw'>...</span>, url_column = <span class='st'>"landingPagePath"</span>, sheet = <span class='st'>"combine"</span>)</pre>
+    <pre class="usage"><span class='fu'>pc_combine</span>(<span class='kw'>...</span>, url_column = <span class='st'>"landingPagePath"</span>, sheet = <span class='st'>"combine"</span>, wait = <span class='fl'>0.1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -127,6 +127,10 @@
     <tr>
       <th>url_column</th>
       <td><p>Name of the column to be used for the input url.</p></td>
+    </tr>
+    <tr>
+      <th>wait</th>
+      <td><p>Seconds to wait between each write call. Used to prevent Google Drive API errors.</p></td>
     </tr>
     </table>
 
