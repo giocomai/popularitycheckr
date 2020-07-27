@@ -13,7 +13,7 @@ pc_get_ia_url(url)
 A url linking to the version on the Internet Archive
 }
 \description{
-See https://archive.org/help/wayback_api.php; and https://github.com/hrbrmstr/wayback for an R implementation.
+See httpss://archive.org/help/wayback_api.php; and httpss://github.com/hrbrmstr/wayback for an R implementation.
 }
 \examples{
 \dontrun{

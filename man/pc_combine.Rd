@@ -4,12 +4,14 @@
 \alias{pc_combine}
 \title{Combine whitelisted sources and referrers with additional data extracted from a website}
 \usage{
-pc_combine(..., url_column = "landingPagePath", sheet = "combine")
+pc_combine(..., url_column = "landingPagePath", sheet = "combine", wait = 0.1)
 }
 \arguments{
 \item{...}{Named functions}
 
 \item{url_column}{Name of the column to be used for the input url.}
+
+\item{wait}{Seconds to wait between each write call. Used to prevent Google Drive API errors.}
 }
 \value{
 Nothing, used for its side effects (fills relevant column in the `combine` spreadsheet)
